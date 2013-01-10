@@ -606,6 +606,8 @@ function Game(board, chessSet) {
 // this object defines the board and the user interface
 function SVGBoard(board, chessSet, game, selector, height) {
     
+    var self = this;
+    
     // everything scales to the board height,
     // so this value can be changed if needed
     // defaults to 450
@@ -796,29 +798,29 @@ function SVGBoard(board, chessSet, game, selector, height) {
                   .text(utfString);
     }
     
-//    for (var squareId in squares) {
-//        var square = squares[squareId];
-//        square.on('mouseover', function() {  
-//            var bishopRange = new chessSet.Bishop('white', this.id).range({});
-//            for (var i = 0; i < bishopRange.length; i += 1) {
-//                var id = bishopRange[i];
-//                squares[id].attr('fill', 'orange');
-//            }
-//        });
-//        square.on('mouseout', function() {
-//            var bishopRange = new chessSet.Bishop('white', this.id).range({});
-//            for (var i = 0; i < bishopRange.length; i += 1) {
-//                var id = bishopRange[i];
-//                if (board[id].color === 'white') {
-//                    var color = 'beige';
-//                } else {
-//                    var color = 'cadetblue';
-//                }
-//                squares[id].attr('fill', color);
-//            }
-//        });
-//    }
-//    
+    for (var squareId in this.squares) {
+        var square = this.squares[squareId];
+        square.on('mouseover', function() {  
+            var bishopRange = new chessSet.Bishop('white', this.id).range({});
+            for (var i = 0; i < bishopRange.length; i += 1) {
+                var id = bishopRange[i];
+                self.squares[id].attr('fill', 'orange');
+            }
+        });
+        square.on('mouseout', function() {
+            var bishopRange = new chessSet.Bishop('white', this.id).range({});
+            for (var i = 0; i < bishopRange.length; i += 1) {
+                var id = bishopRange[i];
+                if (board[id].color === 'white') {
+                    var color = 'beige';
+                } else {
+                    var color = 'cadetblue';
+                }
+                self.squares[id].attr('fill', color);
+            }
+        });
+    }
+     
 //    var pieces = {};
 //    var drawPosition = function() {
 //        for (var squareId in pieces) {
