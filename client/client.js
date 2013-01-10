@@ -756,7 +756,29 @@ function SVGBoard(board, chessSet, game, selector, height) {
                                     .attr('d', pathString)
                                     .attr('fill', color);
     }
-        
+    
+    // show labels for squares' algebraic coordinates
+    var coordinateLabels = {}
+    this.showLabels = function() {
+        for (var squareId in board) {
+            var coordinates = getCoordinates(squareId);
+            coordinateLabels[squareId] = svg.append('text')
+                                            .attr('id', 'label-' + squareId)
+                                            .attr('x', coordinates.x)
+                                            .attr('y', coordinates.y)
+                                            .attr('text-anchor', 'middle')
+                                            .attr('font-size',
+                                                  h * (20 / 500) + 'px')
+                                            .text(squareId);
+        }
+    };
+    this.hideLabels = function() {
+        for (var squareId in coordinateLabels) {
+            coordinateLabels[squareId].remove();
+            delete coordinateLabels[squareId];
+        }
+    };
+    
     // pieces will be represented graphically as utf characters
     var utfPieceDict = {
                         King: {
@@ -983,17 +1005,6 @@ function SVGBoard(board, chessSet, game, selector, height) {
 //    for (var squareId in board) {
 //        pieceSelectorDots[squareId] = new PieceSelectorDot(squareId);
 //    }
-//    
-//    for (var squareId in board) {
-//        var coordinates = getCoordinates(squareId);
-//        svg.append('text')
-//           .attr('id', 'label-' + squareId)
-//           .attr('x', coordinates.x)
-//           .attr('y', coordinates.y)
-//           .attr('text-anchor', 'middle')
-//           .text(squareId);
-//    }
-
 }
 
 ///
