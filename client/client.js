@@ -623,6 +623,12 @@ function SVGBoard(board, chessSet, game, selector, height) {
                 .attr('height', h)
                 .attr('width', w);
     
+    // colors of the svg squares
+    var black = 'cadetblue';
+    var white = 'beige';
+    var highlighted = 'orange';
+    var selected = 'green';
+    
     // utility function for triangulation of square coordinates
     function getMissingSideLength(knownSide, hypotenuse) {
         return Math.sqrt(Math.pow(hypotenuse, 2) - Math.pow(knownSide, 2)) || 0;
@@ -740,9 +746,9 @@ function SVGBoard(board, chessSet, game, selector, height) {
         }
         
         if (square.color === 'white') {
-            var color = 'beige';
+            var color = white;
         } else {
-            var color = 'cadetblue';
+            var color = black;
         }
         
         this.squares[squareId] = svg.append('path')
@@ -802,7 +808,7 @@ function SVGBoard(board, chessSet, game, selector, height) {
             var bishopRange = new chessSet.Bishop('white', this.id).range({});
             for (var i = 0; i < bishopRange.length; i += 1) {
                 var id = bishopRange[i];
-                self.squares[id].attr('fill', 'orange');
+                self.squares[id].attr('fill', highlighted);
             }
         });
         square.on('mouseout', function() {
@@ -810,9 +816,9 @@ function SVGBoard(board, chessSet, game, selector, height) {
             for (var i = 0; i < bishopRange.length; i += 1) {
                 var id = bishopRange[i];
                 if (board[id].color === 'white') {
-                    var color = 'beige';
+                    var color = white;
                 } else {
-                    var color = 'cadetblue';
+                    var color = black;
                 }
                 self.squares[id].attr('fill', color);
             }
@@ -841,7 +847,7 @@ function SVGBoard(board, chessSet, game, selector, height) {
 //                   .attr('cy', coordinates.y)
 //                   .attr('r', h * (17 /500))
 //                   .attr('opacity', 0)
-//                   .attr('fill', 'orange');
+//                   .attr('fill', highlighted);
 //    }
 //    
 //    // these will be the only visible dots
