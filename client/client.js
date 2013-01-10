@@ -622,8 +622,6 @@ function SVGBoard(board, chessSet, game, selector, height) {
                 .attr('id', 'board')
                 .attr('height', h)
                 .attr('width', w);
-                
-    var defs = svg.append('defs');
     
     // utility function for triangulation of square coordinates
     function getMissingSideLength(knownSide, hypotenuse) {
