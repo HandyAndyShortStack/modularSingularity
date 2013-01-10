@@ -808,7 +808,9 @@ function SVGBoard(board, chessSet, game, selector, height) {
         for (var squareId in this.squares) {
             var square = this.squares[squareId];
             square.on('mouseover', function() {
-//                self.squares[squareId].attr('fill', selected);
+                // event handlers' this value is the DOM element, not the d3 selection
+                var that = d3.select('#' + this.id);
+                that.attr('fill', selected);
                 var range = new chessSet[pieceType]('white', this.id).range({});
                 for (var i = 0; i < range.length; i += 1) {
                     var id = range[i];
@@ -816,11 +818,12 @@ function SVGBoard(board, chessSet, game, selector, height) {
                 }
             });
             square.on('mouseout', function() {
-//                if (square.color = 'white') {
-//                    self.squares[squareId].attr('fill', white);
-//                } else {
-//                    self.squares[squareId].attr('fill', black);
-//                }
+                var that = d3.select('#' + this.id);
+                if (board[this.id].color === 'white') {
+                    that.attr('fill', white);
+                } else {
+                    that.attr('fill', black);
+                }
                 var range = new chessSet[pieceType]('white', this.id).range({});
                 for (var i = 0; i < range.length; i += 1) {
                     var id = range[i];
